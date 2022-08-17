@@ -1,8 +1,6 @@
 # https://www.digitalocean.com/community/tutorials/how-to-add-authentication-to-your-app-with-flask-login
 from flask import Blueprint, render_template
 from flask_login import login_required, current_user
-from . import db
-from . import models
 
 main = Blueprint('main', __name__)
 

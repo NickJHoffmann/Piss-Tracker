@@ -3,7 +3,7 @@ from sqlalchemy import text, ForeignKey
 from sqlalchemy.orm import relationship
 
 from flask_login import UserMixin
-from . import db
+from app import db
 
 
 class User(UserMixin, db.Model):
