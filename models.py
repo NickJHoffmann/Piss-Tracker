@@ -14,13 +14,12 @@ class User(UserMixin, db.Model):
     password = db.Column(db.String(300))
     name = db.Column(db.String(100))
 
-    entries = relationship("Entry", cascade="all, delete", passive_deletes=True)
-
+    entries = relationship("Entry", cascade="all,delete", passive_deletes=True, backref="users")
 
 
 class Entry(db.Model):
     __tablename__ = 'entries'
 
-    id = db.Column(sqlalchemy.dialects.postgresql.UUID, ForeignKey("users.id"), primary_key=True)
+    id = db.Column(sqlalchemy.dialects.postgresql.UUID, ForeignKey("users.id", ondelete='CASCADE'), primary_key=True)
     timestamp = db.Column(sqlalchemy.dialects.postgresql.TIMESTAMP, primary_key=True, server_default=text("NOW()"))
     duration = db.Column(db.Float, nullable=False)
