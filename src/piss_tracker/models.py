@@ -1,11 +1,10 @@
-from sqlalchemy import text, ForeignKey
-from sqlalchemy.orm import relationship
-from sqlalchemy.dialects.postgresql import UUID, TIMESTAMP
 import uuid
 
 from flask_login import UserMixin
 from flask_sqlalchemy import SQLAlchemy
-
+from sqlalchemy import ForeignKey, text
+from sqlalchemy.dialects.postgresql import TIMESTAMP, UUID
+from sqlalchemy.orm import relationship
 
 db = SQLAlchemy()
 

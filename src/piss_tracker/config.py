@@ -1,5 +1,5 @@
-from pydantic import BaseSettings
-from pydantic import SecretStr
+from pydantic import BaseSettings, SecretStr
+
 
 class TrackerSettings(BaseSettings):
     secret_key: SecretStr

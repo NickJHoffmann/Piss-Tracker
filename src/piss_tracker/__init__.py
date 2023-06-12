@@ -1,14 +1,18 @@
-from flask import Flask
-from .config import TrackerSettings
-from flask_sqlalchemy import SQLAlchemy
-from flask_migrate import Migrate
-from alembic.config import Config as AlembicConfig
-from alembic import command
 from pathlib import Path
+
+from alembic import command
+from alembic.config import Config as AlembicConfig
+from flask import Flask
 from flask_login import LoginManager
-from .models import User, db as postgres_db
+from flask_migrate import Migrate
+from flask_sqlalchemy import SQLAlchemy
+
 from .auth import auth as auth_blueprint
+from .config import TrackerSettings
 from .main import main as main_blueprint
+from .models import User
+from .models import db as postgres_db
+
 
 def create_app(settings: TrackerSettings = None) -> Flask:
     if settings is None:
@@ -21,7 +25,7 @@ def create_app(settings: TrackerSettings = None) -> Flask:
         SQLALCHEMY_DATABASE_URI=settings.db_url.get_secret_value(),
         FLASK_APP=settings.flask_app,
     )
-    
+
     with app.app_context():
         initialize_db(app, postgres_db, settings)
         initialize_blueprints(app)
@@ -36,7 +40,8 @@ def initialize_db(app: Flask, db: SQLAlchemy, settings: TrackerSettings) -> Flas
 
     if settings.migrate_db:
         alembic_cfg = AlembicConfig(Path(__file__).parent / "migrations" / "alembic.ini")
-        alembic_cfg.set_main_option("script_location", str(Path(__file__).parent / "migrations"))
+        alembic_cfg.set_main_option(
+            "script_location", str(Path(__file__).parent / "migrations"))
         command.upgrade(alembic_cfg, "head")
     else:
         db.create_all()
@@ -51,7 +56,9 @@ def initialize_login(app: Flask) -> Flask:
     @login_manager.user_loader
     def load_user(user_id):
         return User.query.get(user_id)
+
     return app
+
 
 def initialize_blueprints(app: Flask) -> Flask:
     app.register_blueprint(auth_blueprint)
