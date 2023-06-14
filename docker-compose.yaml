@@ -1,0 +1,11 @@
+version: "3.9"
+services:
+  dev-db:
+    container_name: dev-db
+    image: "postgres:latest"
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_USER: dev-user
+      POSTGRES_PASSWORD: dev-pass
+      POSTGRES_DB: dev-db

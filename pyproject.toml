@@ -1,0 +1,25 @@
+[tool.poetry]
+name = "piss-tracker"
+version = "0.0.1"
+description = ""
+authors = ["Nick Hoffmann <nhoffmann117@gmail.com>"]
+readme = "README.md"
+packages = [{include = "piss_tracker", from = "src"}]
+
+[tool.poetry.dependencies]
+python = "^3.11"
+Flask = "^2.3.2"
+Flask-Login = "^0.6.2"
+Flask-Migrate = "^4.0.4"
+Flask-SQLAlchemy = "^3.0.1"
+Flask-WTF = "^1.1.0"
+python-dotenv = "^1.0.0"
+pydantic = {version = "^1.10.9", extras = ["email"]}
+psycopg2-binary = "^2.9.6"
+yapf = "^0.33.0"
+isort = "^5.12.0"
+pylint = "^2.17.4"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.appi"
