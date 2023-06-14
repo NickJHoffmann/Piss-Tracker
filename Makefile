@@ -2,6 +2,7 @@
 
 start:
 	@docker-compose up -d
+	flask run --debug
 
 stop:
 	@docker-compose down
